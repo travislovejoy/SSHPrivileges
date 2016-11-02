@@ -7,4 +7,4 @@ echo "Enter grant or revoke:"
 read permission
 
 #loop through servers, ssh into them and then run script.
-for host in $(cat host.txt); do ssh "$host" "bash -s" < ./GrantRevokeSSH.sh "$user" "$permission"; done
+for host in $(cat hosts.txt); do ssh "$host" "bash -s" < ./GrantRevokeSSH.sh "$user" "$permission"; done
