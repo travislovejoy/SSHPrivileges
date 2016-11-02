@@ -4,10 +4,10 @@
 
 if  [ "$2" = "grant" ];
 then 
-	if grep -Pq "^AllowUsers .*$1( |$)" /etc/ssh/sshd_config;
+	if grep -Pq "^AllowUsers.* $1( |$)" /etc/ssh/sshd_config;
 	then
 		#User is already included in  Allowed Users so don't add again
-		echo ERROR: User Already Has SSH Access
+		echo ERROR: User Already Has Permissions
 
 	elif grep -Pq "^AllowUsers " /etc/ssh/sshd_config; 
 	
@@ -23,13 +23,13 @@ then
 	fi
 elif [ "$2" = "revoke" ]; 
 then
-	if grep -Pq "^AllowUsers .*$1( |$)" /etc/ssh/sshd_config;
+	if grep -Pq "^AllowUsers.* $1( |$)" /etc/ssh/sshd_config;
 	then
 		sed -i "/^AllowUsers/ s/ $1//" /etc/ssh/sshd_config
 		sudo restart ssh
 	else
 		#user not found in list of AllowedUsers 
-		echo ERROR: User Does Not Have SSH Access
+		echo ERROR: User Does Not Have Permissions
 	fi
 else
 	echo ERROR: Invalid Argument
